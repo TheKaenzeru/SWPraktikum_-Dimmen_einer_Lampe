@@ -11,6 +11,9 @@ bool lampe = false;
 int counter = 0;
 bool wait= false;
 int alpha = 5000;
+int singrenzeUp = 10000;
+int singrenzeDown = 0;
+int step = 500;
 
 void setup(){
   pinMode(led, OUTPUT);
@@ -28,6 +31,13 @@ void loop(){
     wait = true;  
   } else if (digitalRead(SND)== LOW && wait == true){
     wait = false;
+  }
+  if (digitalRead(taster1)==HIGH && alpha+step <= singrenzeUp){
+    alpha += step;
+    delay(200);
+  } else if (digitalRead(taster2) == HIGH && alpha-step >= singrenzeDown){
+    alpha -= step;
+    delay(200);
   }
 
 }
