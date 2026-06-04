@@ -4,8 +4,9 @@ int taster1 = 0;
 int taster2 = 1;
 int led = 14;
 int gate = 3;
-int SND = 6;
+int SND = 6; // Spannungsnull Durchgang
 int haeufigkeit = 50;
+int SNI = 9; // Spannungnull Interrupt
 
 bool lampe = false;
 int counter = 0;
@@ -18,6 +19,11 @@ int zuendwinkelmax = 180;
 int singrenzeUp = zuendwinkelmax*10000/180;
 int singrenzeDown = zuendwinkelmin*10000/180;
 
+volatile bool NDG = false; // Null Durchgang
+
+void trigger(){
+  NDG = true;
+}
 
 
 void setup(){
@@ -25,10 +31,12 @@ void setup(){
   pinMode(taster1, INPUT);
   pinMode(taster2,INPUT);
   pinMode(gate, OUTPUT);
+  attachInterrupt(digitalPinToInterrupt(SNI), trigger, RISING);
+
 }
 void loop(){
-  if (digitalRead(SND)==HIGH && wait == false){
-    counter++;
+  if (NDG == true){
+    NDG = false;
     delayMicroseconds(alpha);
     digitalWrite(gate,HIGH);
     delayMicroseconds(10);
