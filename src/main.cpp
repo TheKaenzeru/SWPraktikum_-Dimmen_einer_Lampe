@@ -1,12 +1,20 @@
 #include <Arduino.h>
 
-void setup(){
-  pinMode(14, OUTPUT);
-}
+int taster1 = 0;
+int taster2 = 1;
+int led = 14;
 
+void setup(){
+  pinMode(led, OUTPUT);
+  pinMode(taster1, INPUT);
+  pinMode(taster2,INPUT);
+}
 void loop(){
-  digitalWrite(14, HIGH);
-  delay(1000);
-  digitalWrite(14, LOW);
-  delay(1000);
+  if (digitalRead(taster1) == HIGH){
+    digitalWrite(led, HIGH);
+  }
+  else if (digitalRead(taster2) == HIGH){
+    digitalWrite(led, LOW);
+  }
+delay(100);
 }
