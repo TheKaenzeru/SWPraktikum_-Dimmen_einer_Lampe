@@ -10,6 +10,7 @@ int haeufigkeit = 50;
 bool lampe = false;
 int counter = 0;
 bool wait= false;
+int alpha = 5000;
 
 void setup(){
   pinMode(led, OUTPUT);
@@ -20,20 +21,13 @@ void setup(){
 void loop(){
   if (digitalRead(SND)==HIGH && wait == false){
     counter++;
+    delayMicroseconds(alpha);
+    digitalWrite(gate,HIGH);
+    delayMicroseconds(10);
+    digitalWrite(gate,LOW);
     wait = true;  
   } else if (digitalRead(SND)== LOW && wait == true){
     wait = false;
-  }
-
-  if (counter >= haeufigkeit){
-    counter = 0;
-    lampe = !lampe;
-  }
-
-  if (lampe){
-    digitalWrite(gate, HIGH);
-  } else {
-    digitalWrite(gate,LOW);
   }
 
 }
