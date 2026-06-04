@@ -10,10 +10,15 @@ int haeufigkeit = 50;
 bool lampe = false;
 int counter = 0;
 bool wait= false;
-int alpha = 5000;
-int singrenzeUp = 10000;
-int singrenzeDown = 0;
-int step = 500;
+int alpha = 90;
+int alphazeit = alpha*10000/180;
+int step = 18;
+int zuendwinkelmin = 0;
+int zuendwinkelmax = 180;
+int singrenzeUp = zuendwinkelmax*10000/180;
+int singrenzeDown = zuendwinkelmin*10000/180;
+
+
 
 void setup(){
   pinMode(led, OUTPUT);
@@ -32,10 +37,10 @@ void loop(){
   } else if (digitalRead(SND)== LOW && wait == true){
     wait = false;
   }
-  if (digitalRead(taster1)==HIGH && alpha+step <= singrenzeUp){
+  if (digitalRead(taster1)==HIGH && alphazeit+step <= singrenzeUp){
     alpha += step;
     delay(200);
-  } else if (digitalRead(taster2) == HIGH && alpha-step >= singrenzeDown){
+  } else if (digitalRead(taster2) == HIGH && alphazeit-step >= singrenzeDown){
     alpha -= step;
     delay(200);
   }
